@@ -27,12 +27,14 @@ export function Header() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled || open
-          ? "border-b border-border/80 bg-surface/95 backdrop-blur-md"
-          : "bg-transparent"
+        open
+          ? "border-b border-border/80 bg-surface"
+          : scrolled
+            ? "border-b border-border/80 bg-surface/95 backdrop-blur-md"
+            : "bg-transparent"
       }`}
     >
-      <div className="container-site flex h-16 items-center justify-between md:h-[4.5rem]">
+      <div className="container-site relative z-[60] flex h-16 items-center justify-between md:h-[4.5rem]">
         <Link
           href="/"
           className="focus-ring group flex items-center gap-3 rounded-sm"
@@ -90,18 +92,24 @@ export function Header() {
 
       <div
         id="mobile-menu"
-        className={`lg:hidden ${open ? "block" : "hidden"}`}
+        className={`fixed inset-0 z-50 bg-surface transition-opacity duration-300 lg:hidden ${
+          open
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0"
+        }`}
+        aria-hidden={!open}
       >
-        <div className="border-t border-border bg-surface">
-          <nav
-            className="container-site flex flex-col gap-1 py-4"
-            aria-label="Mobile"
-          >
+        <nav
+          className="flex h-full flex-col px-6 pb-10 pt-24"
+          aria-label="Mobile"
+        >
+          <div className="flex flex-1 flex-col justify-center gap-1">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="focus-ring rounded-md px-3 py-3 text-base text-ink transition-colors hover:bg-brand-mist hover:text-brand"
+                className="focus-ring rounded-md px-2 py-3 font-display text-3xl font-medium tracking-tight text-ink transition-colors hover:text-brand"
+                tabIndex={open ? 0 : -1}
                 onClick={() => setOpen(false)}
               >
                 {link.label}
@@ -109,22 +117,25 @@ export function Header() {
             ))}
             <a
               href="#contact"
-              className="focus-ring rounded-md px-3 py-3 text-base text-ink transition-colors hover:bg-brand-mist hover:text-brand"
+              className="focus-ring rounded-md px-2 py-3 font-display text-3xl font-medium tracking-tight text-ink transition-colors hover:text-brand"
+              tabIndex={open ? 0 : -1}
               onClick={() => setOpen(false)}
             >
               Contact
             </a>
-            <a
-              href={SITE.linkedInFounder}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="focus-ring mt-2 inline-flex items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-medium text-white"
-              onClick={() => setOpen(false)}
-            >
-              Start a Conversation
-            </a>
-          </nav>
-        </div>
+          </div>
+
+          <a
+            href={SITE.linkedInFounder}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="focus-ring inline-flex w-full items-center justify-center rounded-full bg-brand px-5 py-4 text-sm font-medium text-white"
+            tabIndex={open ? 0 : -1}
+            onClick={() => setOpen(false)}
+          >
+            Start a Conversation
+          </a>
+        </nav>
       </div>
     </header>
   );
