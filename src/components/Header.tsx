@@ -34,7 +34,7 @@ export function Header() {
             : "bg-transparent"
       }`}
     >
-      <div className="container-site relative z-[60] flex h-16 items-center justify-between md:h-[4.5rem]">
+      <div className="container-site relative z-[60] flex h-[4.5rem] items-center justify-between md:h-[4.75rem]">
         <Link
           href="/"
           className="focus-ring group flex items-center gap-3 rounded-sm"
@@ -43,12 +43,12 @@ export function Header() {
           <Image
             src="/abd-logo.jpg"
             alt="ABD Search logo"
-            width={44}
-            height={44}
-            className="h-10 w-10 rounded-full object-cover md:h-11 md:w-11"
+            width={64}
+            height={64}
+            className="h-14 w-14 rounded-full object-cover md:h-12 md:w-12"
             priority
           />
-          <span className="hidden text-sm font-semibold tracking-[0.08em] text-ink sm:inline">
+          <span className="text-sm font-semibold tracking-[0.08em] text-ink">
             ABD SEARCH
           </span>
         </Link>
